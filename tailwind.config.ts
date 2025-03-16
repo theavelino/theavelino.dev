@@ -13,6 +13,9 @@ export default {
       },
       animation: {
         spinReactIcon: "spinIcon 3s linear"
+      },
+      borderRadius: {
+        base: "10px"
       }
     },
     keyframes: {

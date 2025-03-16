@@ -12,10 +12,18 @@
   }
 
   body {
-    @apply h-screen flex gap-4 items-center justify-center overflow-hidden;
+    @apply h-screen flex items-center justify-center overflow-hidden;
+  }
+
+  #master {
+    @apply sm:h-[512px] h-screen py-12 sm:py-0 max-w-4xl px-8 w-full flex sm:grid-cols-[auto_auto] sm:grid-rows-[1fr_82px] grid-rows-[40px_1fr_82px] place-content-stretch gap-4 ;
   }
 
   .js-link {
-    view-transition-name: javascript;
+    view-transition-name: javascript; 
   }
+}
+
+nextjs-portal {
+  position: absolute;
 }
