@@ -1,21 +1,124 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
+  --paper: #f3f0e8;
+  --paper-2: #e9e5da;
+  --ink: #14130f;
+  --ink-2: #57544b;
+  --line: #d4cfc2;
+  --accent: #ff4f1a;
+  --accent-ink: #14130f;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --paper: #121210;
+  --paper-2: #1b1b18;
+  --ink: #ecebe4;
+  --ink-2: #9a978c;
+  --line: #2e2d29;
+  --accent: #ff6a3d;
+  --accent-ink: #121210;
   color-scheme: dark;
 }
 
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+}
+
 @layer base {
-  * {
-    @apply border-neutral-600;
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
 
   body {
-    @apply h-screen flex gap-4 items-center justify-center overflow-hidden;
+    @apply bg-paper text-ink font-sans antialiased;
+    transition: background-color 0.3s, color 0.3s;
   }
 
-  .js-link {
-    view-transition-name: javascript;
+  ::selection {
+    @apply bg-accent text-accent-ink;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-4 outline-accent;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.18em] text-ink-2;
+  }
+
+  .link-underline {
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 1px;
+    transition: background-size 0.4s cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+}
+
+/* Elementos com [data-reveal] aparecem ao entrar na tela (ver components/reveal.tsx). */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.1, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.1, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 }

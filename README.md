@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# theavelino.dev
 
-## Getting Started
+Portfólio pessoal de Matheus Avelino — v2.
 
-First, run the development server:
+Página única com layout editorial: tipografia grande com serifa, tema claro/escuro, animações de entrada e conteúdo centralizado em um único arquivo.
+
+## Stack
+
+- [Next.js 16](https://nextjs.org) (App Router, gerado de forma estática)
+- React 19 + TypeScript
+- Tailwind CSS 4
+- Fontes: Instrument Serif, Geist e Geist Mono (`next/font`)
+
+Sem dependências de UI além disso: ícones são SVG inline e as interações são componentes pequenos.
+
+## Rodando
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev        # http://localhost:3000
+pnpm build      # build de produção
+pnpm typecheck
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editando o conteúdo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Todos os textos, projetos, stack e links ficam em [`src/content/site.ts`](src/content/site.ts).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Projetos:** adicione itens em `projects` (`href` = site no ar, `repo` = código).
+- **Redes sociais:** preencha `href` em `socials`; links vazios ficam escondidos.
+- **Disponibilidade:** `site.available` liga/desliga o selo "Disponível para novos projetos".
 
-## Learn More
+## Estrutura
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/app/            layout, página, 404, imagem Open Graph, favicon, sitemap e robots
+src/components/     seções (hero, sobre, projetos, stack, contato) e componentes interativos
+src/content/site.ts conteúdo do site
+legacy/v1/          primeira versão do portfólio (arquivada)
+docs/               notas — ver docs/portfolio-v1.md
+```
